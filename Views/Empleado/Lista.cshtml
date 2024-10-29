@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<CrudASP.Models.Empleado>;
+
+<div class="row">
+    <div class="col-sm-8 offset-sm-2">
+        <h2>Lista de Empleado</h2>
+        <a asp-controller="Empleado" asp-action="Crear" class="btn btn-success mb-3">Crear Empleado</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Nombre Completo</td>
+                    <td>Email</td>
+                    <td>Fecha Contrato</td>
+                    <td>Estado</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdEmpleado</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Email</td>
+                        <td>@item.FechaContrato.ToString("dd/MM/yyyy")</td>
+                        <td>@(item.Estado ? "Si" : "No")</td>
+                        <td>
+                            <a asp-controller="Empleado" asp-action="Editar" asp-route-id="@item.IdEmpleado" class="btn btn-primary mb-3">Editar</a>
+                            <a asp-controller="Empleado" asp-action="Eliminar" asp-route-id="@item.IdEmpleado" Oneclick="return ConfirmarEliminar()" class="btn btn-danger mb-3">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function ConfirmarEliminar() {
+            return confirm("¿Está seguro de eliminar el registro?");
+        }
+    </script>
+}
